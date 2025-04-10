@@ -2,7 +2,6 @@ import { prisma } from '@/db';
 import React from 'react';
 import { PaginationDemo } from './pagination-demo';
 
-// Update the type for props passed to the component
 interface ProductsProps {
   searchParams: { category: string; page: string };
 }
@@ -10,8 +9,10 @@ interface ProductsProps {
 const Products = async ({ searchParams }: ProductsProps) => {
   const PAGE_SIZE = 2;
 
-  // Make sure to await searchParams if necessary
-  const page = Number(searchParams.page);
+  // Ensure page is parsed correctly
+  const page = Number(searchParams.page) || 1; // Default to 1 if no page
+
+  // Fetch products using Prisma
   const products = await prisma.products.findMany({
     skip: (page - 1) * PAGE_SIZE,
     take: PAGE_SIZE,
@@ -33,4 +34,5 @@ const Products = async ({ searchParams }: ProductsProps) => {
   );
 };
 
+// Export the component
 export default Products;
