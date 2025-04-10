@@ -27,7 +27,7 @@ export default async function Home() {
         <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Upload</button>
       </form>
 
-      {/* Image Grid Layout */}
+ 
       <div className="grid grid-cols-3 gap-4 p-4">
         {images?.map((image) => (
           <div

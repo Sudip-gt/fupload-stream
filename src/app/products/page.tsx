@@ -6,9 +6,7 @@ const Products = async ({searchParams} : {searchParams: {catagory: string; page:
     const PAGE_SIZE = 2;
     const products = await prisma.products.findMany(
         {
-            // where: {
-            //     catagory: "shoe",
-            // },
+            
             skip: (Number(searchParams.page) - 1) * PAGE_SIZE,
             take: PAGE_SIZE,
         }
