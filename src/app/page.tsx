@@ -1,6 +1,7 @@
 import { prisma } from "@/db";
 import { uploadFile } from "./actions";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function Home() {
   const images = await prisma.image.findMany();
@@ -34,7 +35,9 @@ export default async function Home() {
             key={image.id}
             className="max-w-sm items-center rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-gray-800"
           >
-            <img src={image.url} alt={image.name} className="rounded-md w-full h-auto" />
+            {/* <img src={image.url} alt={image.name}className="rounded-md w-full h-auto"  /> */}
+            <Image src={image.url} alt={image.name} width={500} height={300} className="rounded-md w-full h-auto"  />
+
           </div>
         ))}
       </div>
