@@ -33,7 +33,7 @@ import { useCallback } from "react";
             <PaginationPrevious href="#" />
           </PaginationItem>
           {["1", "2", "3"].map((a) => (
-               <PaginationItem>
+               <PaginationItem key={a}>
                <PaginationLink href={"/products" + "?" + createQueryString("page", a)}
                 isActive = {searchParams.get("page") === a}> {a} </PaginationLink>
              </PaginationItem>
@@ -49,3 +49,5 @@ import { useCallback } from "react";
     )
   }
   
+
+  // key={item.id || item.name}
