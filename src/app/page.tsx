@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic"; //tells Next.js not to prerender the pag
 
 import { prisma } from "@/db";
 import { uploadFile } from "./actions";
+import { Image as ImageType } from "@prisma/client";
 import Image from "next/image";
 
 export default async function Home() {
@@ -39,7 +40,7 @@ export default async function Home() {
       </form>
 
       <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {images?.map((image) => (
+        {images?.map((image: ImageType) => (
           <div
             key={image.id}
             className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700"
