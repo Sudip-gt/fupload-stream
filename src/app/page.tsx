@@ -1,47 +1,59 @@
+export const dynamic = "force-dynamic"; //tells Next.js not to prerender the page at build time — instead,
+                                        // render it on each request (which plays nicely with 
+                                        // Prisma and database queries
+
+
 import { prisma } from "@/db";
 import { uploadFile } from "./actions";
-import Link from "next/link";
 import Image from "next/image";
 
 export default async function Home() {
   const images = await prisma.image.findMany();
+
   return (
-    <>
-      <header className="flex flex-col items-center p-4">
-        <h1 className="font-bold mt-4">Day 29 of learning Next.js</h1>
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
+      <header className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">
+          Learning Next.js
+        </h1>
+        <h2 className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+          Stream uploading to Cloudinary using streaming
+        </h2>
       </header>
-      <Link
-  className="text-lg font-semibold text-white bg-blue-600 px-4 py-2 rounded-md shadow-md hover:bg-blue-700 transition-all mb-8"
-  href="/products?category=shoe&page=1"
->
-  🛍️ View Products
-</Link>
-      <form action={uploadFile} className="my-4 flex gap-4">
 
+      <form
+        action={uploadFile}
+        className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8"
+      >
+        <label className="cursor-pointer bg-gray-200 text-gray-800 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 transition-all">
+          📂 Choose File
+          <input type="file" name="profile_image" className="hidden" />
+        </label>
 
-      <label className="cursor-pointer bg-gray-200 text-gray-800 px-4 py-2 rounded-md shadow-md hover:bg-gray-300 transition-all">
-    📂 Choose File
-    <input type="file" name="profile_image" className="hidden" />
-  </label>
-
-
-        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">Upload</button>
+        <button
+          type="submit"
+          className="px-6 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 transition"
+        >
+          Upload
+        </button>
       </form>
 
- 
-      <div className="grid grid-cols-3 gap-4 p-4">
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {images?.map((image) => (
           <div
             key={image.id}
-            className="max-w-sm items-center rounded-xl bg-white p-6 shadow-lg outline outline-black/5 dark:bg-gray-800"
+            className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-100 dark:border-gray-700"
           >
-            {/* <img src={image.url} alt={image.name}className="rounded-md w-full h-auto"  /> */}
-            <Image src={image.url} alt={image.name} width={500} height={300} className="rounded-md w-full h-auto"  />
-
+            <Image
+              src={image.url}
+              alt={image.name}
+              width={500}
+              height={300}
+              className="w-full object-cover"
+            />
           </div>
         ))}
-      </div>
-    </>
+      </section>
+    </main>
   );
 }
-
